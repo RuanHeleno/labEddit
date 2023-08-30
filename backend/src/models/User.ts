@@ -84,7 +84,7 @@ export class User {
       email: this.email,
       password: this.password,
       role: this.role,
-      created_at: this.createdAt
+      created_at: this.createdAt,
     };
   }
 

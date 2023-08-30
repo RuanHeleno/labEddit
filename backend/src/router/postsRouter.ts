@@ -9,7 +9,12 @@ import { UserDatabase } from "../database/UserDatabase";
 export const postsRouter = express.Router();
 
 const postsController = new PostsController(
-  new PostsBusiness(new PostsDatabase(), new IdGenerator(), new TokenManager(), new UserDatabase())
+  new PostsBusiness(
+    new PostsDatabase(),
+    new IdGenerator(),
+    new TokenManager(),
+    new UserDatabase()
+  )
 );
 
 postsRouter.get("/", postsController.getPosts);

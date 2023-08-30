@@ -12,6 +12,6 @@ export interface DeleteUserOutputDTO {
 export const DeleteUserSchema = z
   .object({
     email: z.string().email(),
-    token: z.string().min(1)
+    token: z.string().min(1),
   })
   .transform((data) => data as DeleteUserInputDTO);

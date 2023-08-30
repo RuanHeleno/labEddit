@@ -32,9 +32,9 @@ export interface GetPostsModel {
   creator: GetPostsFromUser;
 }
 
-export enum POST_LIKE{
+export enum POST_LIKE {
   ALREADY_LIKED = "ALREADY LIKED",
-  ALREADY_DISLIKED = "ALREADY DISLIKED"
+  ALREADY_DISLIKED = "ALREADY DISLIKED",
 }
 
 export class Posts {
@@ -85,20 +85,20 @@ export class Posts {
   }
 
   public addLike = (): void => {
-    this.likes++
-  }
+    this.likes++;
+  };
 
   public removeLike = (): void => {
-    this.likes--
-  }
+    this.likes--;
+  };
 
   public addDislike = (): void => {
-    this.dislikes++
-  }
+    this.dislikes++;
+  };
 
   public removeDislike = (): void => {
-    this.dislikes--
-  }
+    this.dislikes--;
+  };
 
   public getCreatedAt(): string {
     return this.createdAt;

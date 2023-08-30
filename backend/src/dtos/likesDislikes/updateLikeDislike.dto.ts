@@ -12,6 +12,6 @@ export const LikeDislikesSchema = z
   .object({
     like: z.boolean(),
     id: z.string().min(1),
-    token: z.string().min(1)
+    token: z.string().min(1),
   })
   .transform((data) => data as LikeDislikesInputDTO);
