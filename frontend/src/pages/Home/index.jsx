@@ -20,7 +20,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   axios
-    .get(`${import.meta.env.VITE_API_URL}/posts`, {
+    .get(`https://labook-rh.netlify.app/posts`, {
       headers: {
         Authorization: `${import.meta.env.VITE_API_TOKEN}`,
       },

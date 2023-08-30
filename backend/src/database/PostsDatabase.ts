@@ -7,19 +7,23 @@ export class PostsDatabase extends BaseDatabase {
   public static TABLE_NAME_2 = "likes_dislikes";
 
   public async insertPost(newPostsDB: PostsDB): Promise<void> {
-    await BaseDatabase.connection(PostsDatabase.TABLE_NAME).insert(newPostsDB);
+    const connection = await BaseDatabase.getConnection();
+
+    await connection(PostsDatabase.TABLE_NAME).insert(newPostsDB);
   }
 
   public async findPosts(): Promise<PostsDB[]> {
-    const result: PostsDB[] = await BaseDatabase.connection(
-      PostsDatabase.TABLE_NAME
-    );
+    const connection = await BaseDatabase.getConnection();
+
+    const result: PostsDB[] = await connection(PostsDatabase.TABLE_NAME);
 
     return result;
   }
 
   public async findPostById(id: string): Promise<PostsDB | undefined> {
-    const [PostsDB]: PostsDB[] | undefined[] = await BaseDatabase.connection(
+    const connection = await BaseDatabase.getConnection();
+
+    const [PostsDB]: PostsDB[] | undefined[] = await connection(
       PostsDatabase.TABLE_NAME
     ).where({ id });
 
@@ -27,28 +31,37 @@ export class PostsDatabase extends BaseDatabase {
   }
 
   public async updatePost(postDB: PostsDB, idToEdit: string): Promise<void> {
-    await BaseDatabase.connection(PostsDatabase.TABLE_NAME)
+    const connection = await BaseDatabase.getConnection();
+
+    await connection(PostsDatabase.TABLE_NAME)
       .update(postDB)
       .where({ id: idToEdit });
   }
 
   public async deletePost(id: string): Promise<void> {
-    await BaseDatabase.connection(PostsDatabase.TABLE_NAME).del().where({ id });
+    const connection = await BaseDatabase.getConnection();
+
+    await connection(PostsDatabase.TABLE_NAME).del().where({ id });
   }
 
   public async insertLikeDislike(
     newLikeDislikeDB: LikesDislikesDB
   ): Promise<void> {
-    await BaseDatabase.connection(PostsDatabase.TABLE_NAME_2).insert(
-      newLikeDislikeDB
-    );
+    const connection = await BaseDatabase.getConnection();
+
+    await connection(PostsDatabase.TABLE_NAME_2).insert(newLikeDislikeDB);
   }
 
   public findLikeDislike = async (
     likeDislikeDB: LikesDislikesDB
   ): Promise<POST_LIKE | undefined> => {
-    const [result]: Array<LikesDislikesDB | undefined> =
-      await BaseDatabase.connection(PostsDatabase.TABLE_NAME_2).select().where({
+    const connection = await BaseDatabase.getConnection();
+
+    const [result]: Array<LikesDislikesDB | undefined> = await connection(
+      PostsDatabase.TABLE_NAME_2
+    )
+      .select()
+      .where({
         user_id: likeDislikeDB.user_id,
         post_id: likeDislikeDB.post_id,
       });
@@ -65,7 +78,9 @@ export class PostsDatabase extends BaseDatabase {
   public removeLikeDislike = async (
     likeDislikeDB: LikesDislikesDB
   ): Promise<void> => {
-    await BaseDatabase.connection(PostsDatabase.TABLE_NAME_2).delete().where({
+    const connection = await BaseDatabase.getConnection();
+
+    await connection(PostsDatabase.TABLE_NAME_2).delete().where({
       user_id: likeDislikeDB.user_id,
       post_id: likeDislikeDB.post_id,
     });
@@ -74,11 +89,11 @@ export class PostsDatabase extends BaseDatabase {
   public updateLikeDislike = async (
     likeDislikeDB: LikesDislikesDB
   ): Promise<void> => {
-    await BaseDatabase.connection(PostsDatabase.TABLE_NAME_2)
-      .update(likeDislikeDB)
-      .where({
-        user_id: likeDislikeDB.user_id,
-        post_id: likeDislikeDB.post_id,
-      });
+    const connection = await BaseDatabase.getConnection();
+
+    await connection(PostsDatabase.TABLE_NAME_2).update(likeDislikeDB).where({
+      user_id: likeDislikeDB.user_id,
+      post_id: likeDislikeDB.post_id,
+    });
   };
 }
