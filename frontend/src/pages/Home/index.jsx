@@ -12,15 +12,13 @@ import { ButtonStyled, Container, Form } from './styled';
 
 import logo from '../../assets/img/logo.png';
 
-//VITE_API_URL=https://labook-rh.netlify.app
-
 const Home = () => {
   const context = useContext(GlobalContext);
   const { email, setEmail, password, setPassword } = context;
   const navigate = useNavigate();
 
   axios
-    .get(`https://labook-rh.netlify.app/posts`, {
+    .get(`http://localhost:3003/posts`, {
       headers: {
         Authorization: `${import.meta.env.VITE_API_TOKEN}`,
       },
