@@ -18,7 +18,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   axios
-    .get(`http://localhost:3003/posts`, {
+    .get(`https://labeddit-api-rh.netlify.app/posts`, {
       headers: {
         Authorization: `${import.meta.env.VITE_API_TOKEN}`,
       },

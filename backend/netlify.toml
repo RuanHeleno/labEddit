@@ -1,7 +1,14 @@
 [build]
   command = "npm run build" # O comando para construir sua aplicação
   publish = "build/"        # A pasta que contém os arquivos a serem implantados
-  
+
+[build.environment]
+  PORT="3003"
+  DB_FILE_PATH="./labEddit.db"
+  JWT_KEY="Test@ndo$123$"
+  JWT_EXPIRES_IN="7d"
+  BCRYPT_COST="12"
+
 [[headers]]
   for = "/*"
   [headers.values]
