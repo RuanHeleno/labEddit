@@ -1,13 +1,9 @@
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 import PropTypes from 'prop-types';
 
 import { ButtonStyled } from './styled';
 
-const Button = (props) => {
-  // eslint-disable-next-line no-unused-vars, react/prop-types
-  const [text, setText] = useState(props.value);
-
+const Button = ({ value }) => {
   return (
     <ButtonStyled
       as={motion.button}
@@ -22,12 +18,12 @@ const Button = (props) => {
         },
       }}
     >
-      {text}
+      {value}
     </ButtonStyled>
   );
 };
 
-Button.prototype = {
+Button.propTypes = {
   value: PropTypes.string.isRequired,
 };
 

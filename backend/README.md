@@ -1,4 +1,4 @@
-# API LaBook Backend
+# API LabEddit
 
 ## Table of contents
 
@@ -21,7 +21,7 @@
 
 ## :mega: Overview
 
-A API to my portfolio made based on a Social Media backend. See more below :)
+A API to my portfolio made based on a Social Media fullstack. See more below :)
 
 ### Demo
 
@@ -67,8 +67,7 @@ A API to my portfolio made based on a Social Media backend. See more below :)
 // Response
 // status 200 OK
 {
-    "message": "Login realizado com sucesso",
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InUwMDEiLCJuYW1lIjoicnVhbiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY5Mjg3NjEyMiwiZXhwIjoxNjkzNDgwOTIyfQ.pUNmQ5jONin6-4YsYGpHmmmXd8rGwJcMrJXRnPQaOhE"
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InUwMDEiLCJuYW1lIjoicnVhbiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY5NjM2NzYyMiwiZXhwIjoxNjk2OTcyNDIyfQ.39usnCmmLMe6Dq92DlJPpr1Z6pcMwlHjY9a-d56NaTs"
 }
 ```
 
@@ -78,7 +77,7 @@ A API to my portfolio made based on a Social Media backend. See more below :)
 
 ```
 // Request GET /users
-// headers.authorization = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InUwMDEiLCJuYW1lIjoicnVhbiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY5Mjg3NjEyMiwiZXhwIjoxNjkzNDgwOTIyfQ.pUNmQ5jONin6-4YsYGpHmmmXd8rGwJcMrJXRnPQaOhE"
+// headers.authorization = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InUwMDEiLCJuYW1lIjoicnVhbiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY5NjM2NzYyMiwiZXhwIjoxNjk2OTcyNDIyfQ.39usnCmmLMe6Dq92DlJPpr1Z6pcMwlHjY9a-d56NaTs"
 
 // Response
 // status 200 OK
@@ -109,12 +108,28 @@ A API to my portfolio made based on a Social Media backend. See more below :)
 
 ---
 
+### Get User By Token
+
+```
+// Request GET /users/data
+// headers.authorization = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InUwMDEiLCJuYW1lIjoicnVhbiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY5NjM2NzYyMiwiZXhwIjoxNjk2OTcyNDIyfQ.39usnCmmLMe6Dq92DlJPpr1Z6pcMwlHjY9a-d56NaTs"
+
+// Response
+// status 200 OK
+{
+    "id": "u001",
+    "role": "ADMIN"
+}
+```
+
+---
+
 ### Edit User By Email
 
 ```
 // Request PUT /users/teste@gmail.com
 // path params = :email
-// headers.authorization = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InUwMDEiLCJuYW1lIjoicnVhbiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY5Mjg3NjEyMiwiZXhwIjoxNjkzNDgwOTIyfQ.pUNmQ5jONin6-4YsYGpHmmmXd8rGwJcMrJXRnPQaOhE"
+// headers.authorization = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InUwMDEiLCJuYW1lIjoicnVhbiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY5NjM2NzYyMiwiZXhwIjoxNjk2OTcyNDIyfQ.39usnCmmLMe6Dq92DlJPpr1Z6pcMwlHjY9a-d56NaTs"
 
 // body JSON
 {
@@ -135,7 +150,7 @@ A API to my portfolio made based on a Social Media backend. See more below :)
 ```
 // Request DELETE /users/teste@gmail.com
 // path params = :email
-// headers.authorization = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InUwMDEiLCJuYW1lIjoicnVhbiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY5Mjg3NjEyMiwiZXhwIjoxNjkzNDgwOTIyfQ.pUNmQ5jONin6-4YsYGpHmmmXd8rGwJcMrJXRnPQaOhE"
+// headers.authorization = "yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InUwMDEiLCJuYW1lIjoicnVhbiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY5NjM2NzYyMiwiZXhwIjoxNjk2OTcyNDIyfQ.39usnCmmLMe6Dq92DlJPpr1Z6pcMwlHjY9a-d56NaTs"
 
 // Response
 // status 200 OK
@@ -150,7 +165,7 @@ A API to my portfolio made based on a Social Media backend. See more below :)
 
 ```
 // Request POST /posts
-// headers.authorization = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InUwMDEiLCJuYW1lIjoicnVhbiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY5Mjg3NjEyMiwiZXhwIjoxNjkzNDgwOTIyfQ.pUNmQ5jONin6-4YsYGpHmmmXd8rGwJcMrJXRnPQaOhE"
+// headers.authorization = "yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InUwMDEiLCJuYW1lIjoicnVhbiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY5NjM2NzYyMiwiZXhwIjoxNjk2OTcyNDIyfQ.39usnCmmLMe6Dq92DlJPpr1Z6pcMwlHjY9a-d56NaTs"
 
 // body JSON
 {
@@ -163,13 +178,14 @@ A API to my portfolio made based on a Social Media backend. See more below :)
     "content": "Partiu happy hour!"
 }
 ```
+
 ---
 
 ### Get all Posts
 
 ```
-// Request GET /products
-// headers.authorization = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InUwMDEiLCJuYW1lIjoicnVhbiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY5Mjg3NjEyMiwiZXhwIjoxNjkzNDgwOTIyfQ.pUNmQ5jONin6-4YsYGpHmmmXd8rGwJcMrJXRnPQaOhE"
+// Request GET /posts
+// headers.authorization = "yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InUwMDEiLCJuYW1lIjoicnVhbiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY5NjM2NzYyMiwiZXhwIjoxNjk2OTcyNDIyfQ.39usnCmmLMe6Dq92DlJPpr1Z6pcMwlHjY9a-d56NaTs"
 
 // Response
 // status 200 OK
@@ -242,9 +258,9 @@ A API to my portfolio made based on a Social Media backend. See more below :)
 ### Edit Post By ID
 
 ```
-// Request PUT /posts/6185caec-5808-4f1c-a503-f737f34e4307
+// Request PUT /posts/7caa2916-3724-42eb-b15c-7bbeaccd69aa
 // path params = :id
-// headers.authorization = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InUwMDEiLCJuYW1lIjoicnVhbiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY5Mjg3NjEyMiwiZXhwIjoxNjkzNDgwOTIyfQ.pUNmQ5jONin6-4YsYGpHmmmXd8rGwJcMrJXRnPQaOhE"
+// headers.authorization = "yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InUwMDEiLCJuYW1lIjoicnVhbiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY5NjM2NzYyMiwiZXhwIjoxNjk2OTcyNDIyfQ.39usnCmmLMe6Dq92DlJPpr1Z6pcMwlHjY9a-d56NaTs"
 
 // body JSON
 {
@@ -265,7 +281,7 @@ A API to my portfolio made based on a Social Media backend. See more below :)
 ```
 // Request PUT /posts/6185caec-5808-4f1c-a503-f737f34e4307/like
 // path params = :id
-// headers.authorization = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InUwMDEiLCJuYW1lIjoicnVhbiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY5Mjg3NjEyMiwiZXhwIjoxNjkzNDgwOTIyfQ.pUNmQ5jONin6-4YsYGpHmmmXd8rGwJcMrJXRnPQaOhE"
+// headers.authorization = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InUwMDEiLCJuYW1lIjoicnVhbiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY5NjM2NzYyMiwiZXhwIjoxNjk2OTcyNDIyfQ.39usnCmmLMe6Dq92DlJPpr1Z6pcMwlHjY9a-d56NaTs"
 
 // body JSON
 {
@@ -274,12 +290,21 @@ A API to my portfolio made based on a Social Media backend. See more below :)
 
 // Response
 // status 200 OK
+{
+    "id": "7caa2916-3724-42eb-b15c-7bbeaccd69aa",
+    "creatorId": "ef3f7754-1717-4f79-a69d-b133e460b6e8",
+    "content": "teste2",
+    "likes": 1,
+    "dislikes": 0,
+    "createdAt": "2023-09-03 16:31:50",
+    "updatedAt": "2023-09-03 16:31:50"
+}
 ```
 
 ```
-// Request PUT /posts/6185caec-5808-4f1c-a503-f737f34e4307/like
+// Request PUT /posts/7caa2916-3724-42eb-b15c-7bbeaccd69aa/like
 // path params = :id
-// headers.authorization = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InUwMDEiLCJuYW1lIjoicnVhbiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY5Mjg3NjEyMiwiZXhwIjoxNjkzNDgwOTIyfQ.pUNmQ5jONin6-4YsYGpHmmmXd8rGwJcMrJXRnPQaOhE"
+// headers.authorization = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InUwMDEiLCJuYW1lIjoicnVhbiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY5NjM2NzYyMiwiZXhwIjoxNjk2OTcyNDIyfQ.39usnCmmLMe6Dq92DlJPpr1Z6pcMwlHjY9a-d56NaTs"
 
 // body JSON
 {
@@ -288,6 +313,15 @@ A API to my portfolio made based on a Social Media backend. See more below :)
 
 // Response
 // status 200 OK
+{
+    "id": "7caa2916-3724-42eb-b15c-7bbeaccd69aa",
+    "creatorId": "ef3f7754-1717-4f79-a69d-b133e460b6e8",
+    "content": "teste2",
+    "likes": 0,
+    "dislikes": 1,
+    "createdAt": "2023-09-03 16:31:50",
+    "updatedAt": "2023-09-03 16:31:50"
+}
 ```
 
 ---
@@ -295,9 +329,9 @@ A API to my portfolio made based on a Social Media backend. See more below :)
 ### Delete Post By ID
 
 ```
-// Request DELETE /posts/6185caec-5808-4f1c-a503-f737f34e4307
+// Request DELETE /posts/7caa2916-3724-42eb-b15c-7bbeaccd69aa
 // path params = :id
-// headers.authorization = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InUwMDEiLCJuYW1lIjoicnVhbiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY5Mjg3NjEyMiwiZXhwIjoxNjkzNDgwOTIyfQ.pUNmQ5jONin6-4YsYGpHmmmXd8rGwJcMrJXRnPQaOhE"
+// headers.authorization = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InUwMDEiLCJuYW1lIjoicnVhbiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY5NjM2NzYyMiwiZXhwIjoxNjk2OTcyNDIyfQ.39usnCmmLMe6Dq92DlJPpr1Z6pcMwlHjY9a-d56NaTs"
 
 // Response
 // status 200 OK

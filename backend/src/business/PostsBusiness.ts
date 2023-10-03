@@ -80,9 +80,7 @@ export class PostsBusiness {
     const newPostDB = newPost.toDBModel();
     await this.postsDatabase.insertPost(newPostDB);
 
-    const output: CreatePostOutputDTO = {
-      content,
-    };
+    const output: CreatePostOutputDTO = newPost;
 
     const like = null;
 
@@ -216,12 +214,13 @@ export class PostsBusiness {
     const payLoad = this.tokenManager.getPayload(token);
 
     if (!payLoad) {
-      throw new BadRequestError('"Token" inválido');
+      throw new BadRequestError("Token inválido");
     }
+
     const postDB = await this.postsDatabase.findPostById(id);
 
     if (!postDB) {
-      throw new NotFoundError("Post não encontrado");
+      throw new NotFoundError("Postagem não encontrada");
     }
 
     if (payLoad.id === postDB.creator_id) {
@@ -278,7 +277,7 @@ export class PostsBusiness {
     const updatedPostDB = post.toDBModel();
     await this.postsDatabase.updatePost(updatedPostDB, id);
 
-    const output: LikeDislikestOutputDTO = undefined;
+    const output: LikeDislikestOutputDTO = post;
 
     return output;
   };
@@ -297,7 +296,7 @@ export class PostsBusiness {
     const postDBExists = await this.postsDatabase.findPostById(id);
 
     if (!postDBExists) {
-      throw new BadRequestError("Post não encontrado.");
+      throw new NotFoundError("Post não encontrado.");
     }
 
     if (
@@ -311,9 +310,7 @@ export class PostsBusiness {
 
     await this.postsDatabase.deletePost(id);
 
-    const output: DeletePostOutputDTO = {
-      message: "Post deletado com sucesso!",
-    };
+    const output: DeletePostOutputDTO = null;
 
     return output;
   };

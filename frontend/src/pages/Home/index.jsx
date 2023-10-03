@@ -1,7 +1,6 @@
 import { useContext } from 'react';
 import { Input } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 
 import Button from '../../components/Button';
 import Line from '../../components/Line';
@@ -11,24 +10,20 @@ import { goToSignUp } from '../../routes/coordinator';
 import { ButtonStyled, Container, Form } from './styled';
 
 import logo from '../../assets/img/logo.png';
+import { AuthContext } from '../../contexts/Auth';
 
 const Home = () => {
   const context = useContext(GlobalContext);
   const { email, setEmail, password, setPassword } = context;
+  const authContext = useContext(AuthContext);
+  const { login } = authContext;
   const navigate = useNavigate();
 
-  axios
-    .get(`https://labeddit-api-rh.netlify.app/posts`, {
-      headers: {
-        Authorization: `${import.meta.env.VITE_API_TOKEN}`,
-      },
-    })
-    .then((response) => {
-      console.log(response.data);
-    })
-    .catch((error) => {
-      console.error('Erro na requisição:', error);
-    });
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    login(email, password);
+  };
 
   return (
     <Container
@@ -45,7 +40,7 @@ const Home = () => {
 
       <p>O projeto de rede social da Labenu</p>
 
-      <Form>
+      <Form onSubmit={(e) => handleSubmit(e)}>
         <Input
           type="email"
           id="email"

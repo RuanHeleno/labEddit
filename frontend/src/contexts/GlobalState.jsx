@@ -6,8 +6,10 @@ import { GlobalContext } from './GlobalContext';
 function GlobalState({ children }) {
   const [showMenu, setShowMenu] = useState(false);
   const [nickname, setNickname] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('ruan@email.com');
+  const [password, setPassword] = useState('12345678');
+  const [userId, setUserId] = useState('');
+  const [userRole, setUserRole] = useState('');
 
   const data = {
     showMenu,
@@ -18,6 +20,10 @@ function GlobalState({ children }) {
     setEmail,
     password,
     setPassword,
+    userId,
+    setUserId,
+    userRole,
+    setUserRole,
   };
 
   return (

@@ -1,4 +1,5 @@
 import z from "zod";
+import { Posts } from "../../models/Posts";
 
 export interface LikeDislikesInputDTO {
   like: boolean;
@@ -6,7 +7,7 @@ export interface LikeDislikesInputDTO {
   token: string;
 }
 
-export type LikeDislikestOutputDTO = undefined;
+export type LikeDislikestOutputDTO = Posts;
 
 export const LikeDislikesSchema = z
   .object({

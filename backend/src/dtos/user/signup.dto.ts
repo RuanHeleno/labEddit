@@ -11,10 +11,16 @@ export interface SignupOutputDTO {
   token: string;
 }
 
+const customErrorMessages = {
+  stringTooShortName: "Nome deve conter pelo menos 2 caracteres.",
+  stringTooShortPassword: "Senha deve conter pelo menos 8 caracteres.",
+  invalidEmail: "Formato do Email inválido.",
+};
+
 export const SignupSchema = z
   .object({
-    name: z.string().min(2),
-    email: z.string().email(),
-    password: z.string().min(8),
+    name: z.string().min(2, customErrorMessages.stringTooShortName),
+    email: z.string().email(customErrorMessages.invalidEmail),
+    password: z.string().min(8, customErrorMessages.stringTooShortPassword),
   })
   .transform((data) => data as SignupInputDTO);

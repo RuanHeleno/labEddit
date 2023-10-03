@@ -17,7 +17,7 @@ Content-Type: application/json
 
 {
     "email":"ruan@email.com",
-    "password":"12345678"
+    "password":"123456789"
 }
 
 ###Edit user By email
