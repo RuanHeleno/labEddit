@@ -1,7 +1,7 @@
 # LabEddit
 
-[Frontend](./frontend/)
-[Backend](./backend/)
+- [Frontend](./frontend/)
+- [Backend](./backend/)
 
 ### :man: Author
 
