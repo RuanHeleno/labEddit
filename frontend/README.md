@@ -1,4 +1,4 @@
-# Portfolio
+# LabEddit
 
 ## Table of contents
 
@@ -27,7 +27,7 @@
 
 ### Demo
 
-[Click here to see more](
+[Click here to see more]()
 
 ## :newspaper: Process
 
