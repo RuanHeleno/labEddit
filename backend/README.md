@@ -3,7 +3,7 @@
 ## Table of contents
 
 - [Overview](#overview)
-  - [Demo](#demo)
+  - [Documentation](#documentation)
 - [Features](#features)
   - [Signup](#signup)
   - [Login](#login)
@@ -11,6 +11,7 @@
   - [Edit User By Email](#edit-user-by-email)
   - [Delete User By Email](#delete-user-by-email)
   - [Create new Post](#create-new-post)
+  - [Create new Comment](#create-new-comment)
   - [Get all Posts](#get-all-posts)
   - [Edit Post By ID](#edit-post-by-id)
   - [Edit Post Like/Dislike](#edit-post-like-dislike)
@@ -23,9 +24,9 @@
 
 A API to my portfolio made based on a Social Media fullstack. See more below :)
 
-### Demo
+### Documentation
 
-[Click here to see more](https://documenter.getpostman.com/view/17432210/2s946eADNj)
+[Click here to see more](https://documenter.getpostman.com/view/17432210/2s9YJgULVn)
 
 ## :computer: Features
 
@@ -181,6 +182,24 @@ A API to my portfolio made based on a Social Media fullstack. See more below :)
 
 ---
 
+### Create new Comment
+
+```
+// Request POST /posts/comments/c4c3db0d-93b6-487d-8bce-8e8caa159857
+// path params = :id
+// headers.authorization = "yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InUwMDEiLCJuYW1lIjoicnVhbiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY5NjM2NzYyMiwiZXhwIjoxNjk2OTcyNDIyfQ.39usnCmmLMe6Dq92DlJPpr1Z6pcMwlHjY9a-d56NaTs"
+
+// body JSON
+{
+    "content": "Comentário criado!"
+}
+
+// Response
+// status 200 OK
+```
+
+---
+
 ### Get all Posts
 
 ```
@@ -245,6 +264,45 @@ A API to my portfolio made based on a Social Media fullstack. See more below :)
         "dislikes": 0,
         "createdAt": "2023-08-24 18:15:23",
         "updatedAt": "2023-08-24 18:15:23",
+        "creator": {
+            "id": "u001",
+            "name": "ruan"
+        }
+    }
+]
+```
+
+---
+
+### Get all Comments from a post
+
+```
+// Request GET /posts/comment/c4c3db0d-93b6-487d-8bce-8e8caa159857
+// path params = :id
+// headers.authorization = "yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InUwMDEiLCJuYW1lIjoicnVhbiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY5NjM2NzYyMiwiZXhwIjoxNjk2OTcyNDIyfQ.39usnCmmLMe6Dq92DlJPpr1Z6pcMwlHjY9a-d56NaTs"
+
+// Response
+// status 200 OK
+[
+    {
+        "id": "fc85e24c-5fba-4b3a-a9fa-907f68de4d27",
+        "content": "Comentário criado!",
+        "likes": 0,
+        "dislikes": 0,
+        "createdAt": "2023-10-08T20:18:07.407Z",
+        "updatedAt": "2023-10-08T20:18:07.407Z",
+        "creator": {
+            "id": "u001",
+            "name": "ruan"
+        }
+    },
+    {
+        "id": "6e6041cd-86a3-41ac-af82-4a00724fadb1",
+        "content": "Comentário criado 23!",
+        "likes": 0,
+        "dislikes": 0,
+        "createdAt": "2023-10-08T20:19:00.140Z",
+        "updatedAt": "2023-10-08T20:19:00.140Z",
         "creator": {
             "id": "u001",
             "name": "ruan"

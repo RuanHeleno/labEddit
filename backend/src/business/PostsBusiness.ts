@@ -1,6 +1,15 @@
 import { PostsDatabase } from "../database/PostsDatabase";
 import { UserDatabase } from "../database/UserDatabase";
 import {
+  CreateCommentInputDTO,
+  CreateCommentOutputDTO,
+} from "../dtos/coments/Createcomment.dto";
+
+import {
+  GetCommentsInputDTO,
+  GetCommentsOutputDTO,
+} from "../dtos/coments/getComments.dto";
+import {
   LikeDislikesInputDTO,
   LikeDislikestOutputDTO,
 } from "../dtos/likesDislikes/updateLikeDislike.dto";
@@ -22,6 +31,7 @@ import {
 } from "../dtos/posts/getPosts.dto";
 import { BadRequestError } from "../errors/BadRequestError";
 import { NotFoundError } from "../errors/NotFoundError";
+import { Comment } from "../models/Comments";
 import { LikesDislikes, LikesDislikesDB } from "../models/LikesDislikes";
 import { POST_LIKE, Posts } from "../models/Posts";
 import { USER_ROLES } from "../models/User";
@@ -74,7 +84,8 @@ export class PostsBusiness {
       likes,
       dislikes,
       isoDateString,
-      isoDateString
+      isoDateString,
+      0
     );
 
     const newPostDB = newPost.toDBModel();
@@ -113,7 +124,8 @@ export class PostsBusiness {
         postDB.likes,
         postDB.dislikes,
         postDB.created_at,
-        postDB.updated_at
+        postDB.updated_at,
+        postDB.amount_comments
       );
 
       return post.toBusinessModel();
@@ -143,6 +155,7 @@ export class PostsBusiness {
           id: post.creatorId,
           name: names[index],
         },
+        amountComment: post.amountComments,
       };
 
       return newPost;
@@ -193,7 +206,8 @@ export class PostsBusiness {
       postDB.likes,
       postDB.dislikes,
       postDB.created_at,
-      isoDateString
+      isoDateString,
+      postDB.amount_comments
     );
 
     const editPostDB = editPost.toDBModel();
@@ -236,7 +250,8 @@ export class PostsBusiness {
       postDB.likes,
       postDB.dislikes,
       postDB.created_at,
-      postDB.updated_at
+      postDB.updated_at,
+      postDB.amount_comments
     );
 
     const likeSQlite = like ? 1 : 0;
@@ -311,6 +326,111 @@ export class PostsBusiness {
     await this.postsDatabase.deletePost(id);
 
     const output: DeletePostOutputDTO = null;
+
+    return output;
+  };
+
+  public createComment = async (
+    input: CreateCommentInputDTO
+  ): Promise<CreateCommentOutputDTO> => {
+    const { content, token, postId } = input;
+
+    const payload = this.tokenManager.getPayload(token);
+    if (!payload) {
+      throw new BadRequestError("token invalido");
+    }
+
+    const id = this.idGenerator.generateId();
+
+    const newPost = new Comment(
+      id,
+      payload.id,
+      postId,
+      content,
+      0,
+      0,
+      new Date().toISOString(),
+      new Date().toISOString()
+    );
+
+    const newPostToDB = newPost.toDBModel();
+
+    const postsDB = await this.postsDatabase.findPostByIdAmount(postId);
+    await this.postsDatabase.insertComment(newPostToDB);
+
+    await this.postsDatabase.updateAmountComment(
+      postId,
+      postsDB.amount_comments + 1
+    );
+
+    const output: CreateCommentOutputDTO = undefined;
+
+    return output;
+  };
+
+  public getComments = async (
+    input: GetCommentsInputDTO
+  ): Promise<GetCommentsOutputDTO> => {
+    const { token, postId } = input;
+
+    const payload = this.tokenManager.getPayload(token);
+
+    if (!payload) {
+      throw new BadRequestError("token inválido");
+    }
+
+    const postExist = await this.postsDatabase.findPostById(postId);
+
+    if (!postExist) {
+      throw new BadRequestError("Post não encontrado");
+    }
+
+    const postsDB = await this.postsDatabase.getComments(postId);
+
+    const getPosts = postsDB.map((postsDB) => {
+      const post = new Comment(
+        postsDB.id,
+        postsDB.creator_id,
+        postsDB.post_id,
+        postsDB.content,
+        postsDB.likes,
+        postsDB.dislikes,
+        postsDB.created_at,
+        postsDB.updated_at
+      );
+      return post.toBusinessModelComments();
+    });
+
+    const getPostCreatorId = getPosts.map((post) => post.creatorId);
+
+    const userName: any = [];
+
+    for (let i = 0; i < getPostCreatorId.length; i++) {
+      const result = await this.userDatabase.returnUserName(
+        getPostCreatorId[i]
+      );
+
+      userName.push(result);
+    }
+
+    const post = getPosts.map((post, index) => {
+      const postModel = {
+        id: post.id,
+        content: post.content,
+        likes: post.likes,
+        dislikes: post.dislike,
+        createdAt: post.createdAt,
+        updatedAt: post.updatedAt,
+        creator: {
+          id: post.creatorId,
+          name: userName[index],
+        },
+      };
+
+      return postModel;
+    });
+
+    const output: GetCommentsOutputDTO = post;
 
     return output;
   };

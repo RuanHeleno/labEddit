@@ -7,6 +7,8 @@ import { CreatePostSchema } from "../dtos/posts/createPost.dto";
 import { EditPostSchema } from "../dtos/posts/editPost.dto";
 import { DeletePostSchema } from "../dtos/posts/deletePost.dto";
 import { LikeDislikesSchema } from "../dtos/likesDislikes/updateLikeDislike.dto";
+import { createCommentSchema } from "../dtos/coments/Createcomment.dto";
+import { GetCommentsSchema } from "../dtos/coments/getComments.dto";
 
 export class PostsController {
   constructor(private postsBusiness: PostsBusiness) {}
@@ -113,6 +115,46 @@ export class PostsController {
         res.status(error.statusCode).send(error.message);
       } else {
         res.status(500).send("Erro inesperado");
+      }
+    }
+  };
+
+  public createComment = async (req: Request, res: Response): Promise<void> => {
+    try {
+      const input = createCommentSchema.parse({
+        content: req.body.content,
+        token: req.headers.authorization,
+        postId: req.params.id,
+      });
+
+      const result = await this.postsBusiness.createComment(input);
+      res.status(200).send(result);
+    } catch (error) {
+      if (error instanceof ZodError) {
+        res.status(400).send(error.issues);
+      } else if (error instanceof BaseError) {
+        res.status(error.statusCode).send(error.message);
+      } else {
+        res.status(500).send("Unexpected error");
+      }
+    }
+  };
+
+  public getComments = async (req: Request, res: Response): Promise<void> => {
+    try {
+      const input = GetCommentsSchema.parse({
+        token: req.headers.authorization,
+        postId: req.params.id,
+      });
+      const output = await this.postsBusiness.getComments(input);
+      res.status(200).send(output);
+    } catch (error) {
+      if (error instanceof ZodError) {
+        res.status(400).send(error.issues);
+      } else if (error instanceof BaseError) {
+        res.status(error.statusCode).send(error.message);
+      } else {
+        res.status(500).send("Unexpected error");
       }
     }
   };
