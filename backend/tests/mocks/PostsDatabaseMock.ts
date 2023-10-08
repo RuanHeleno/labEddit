@@ -1,6 +1,7 @@
 import { LikesDislikesDB } from "../../src/models/LikesDislikes";
-import { POST_LIKE, PostsDB } from "../../src/models/Posts";
+import { POST_LIKE, PostsDB, PostsDBAmount } from "../../src/models/Posts";
 import { BaseDatabase } from "../../src/database/BaseDatabase";
+import { CommentDB } from "../../src/models/Comments";
 
 const postsMock: PostsDB[] = [
   {
@@ -11,6 +12,7 @@ const postsMock: PostsDB[] = [
     dislikes: 2,
     created_at: new Date().toISOString(),
     updated_at: new Date().toISOString(),
+    amount_comments: 0,
   },
   {
     id: "id-mock-post-2",
@@ -20,6 +22,7 @@ const postsMock: PostsDB[] = [
     dislikes: 3,
     created_at: new Date().toISOString(),
     updated_at: new Date().toISOString(),
+    amount_comments: 1,
   },
 ];
 
@@ -41,9 +44,43 @@ const likesDislikesMock: LikesDislikesDB[] = [
   },
 ];
 
+const commentsMock: CommentDB[] = [
+  {
+    id: "comment-id-1",
+    post_id: "id-mock-post-1",
+    creator_id: "id-mock-astrodev",
+    content: "Este é o comentário 1",
+    likes: 10,
+    dislikes: 3,
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
+  },
+  {
+    id: "comment-id-2",
+    post_id: "id-mock-post-1",
+    creator_id: "id-mock-fulano",
+    content: "Este é o comentário 2",
+    likes: 1,
+    dislikes: 0,
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
+  },
+  {
+    id: "comment-id-3",
+    post_id: "id-mock-post-1",
+    creator_id: "id-mock-astrodev",
+    content: "Este é o comentário 3",
+    likes: 100,
+    dislikes: 30,
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
+  },
+];
+
 export class PostsDatabaseMock extends BaseDatabase {
   public static TABLE_NAME = "posts";
   public static TABLE_NAME_2 = "likes_dislikes";
+  public static TABLE_COMMENT = "comments";
 
   public async insertPost(newPostsDB: PostsDB): Promise<void> {
     postsMock.push(newPostsDB);
@@ -118,6 +155,36 @@ export class PostsDatabaseMock extends BaseDatabase {
     );
     if (likeDislikeIndex !== -1) {
       likesDislikesMock[likeDislikeIndex] = likeDislikeDB;
+    }
+  }
+
+  public async insertComment(newPost: CommentDB): Promise<void> {
+    commentsMock.push(newPost);
+  }
+
+  public async findPostByIdAmount(
+    idToEdit: string
+  ): Promise<PostsDBAmount | undefined> {
+    const postDB: PostsDBAmount | undefined = postsMock.find(
+      (post) => post.id === idToEdit
+    );
+    return postDB;
+  }
+
+  public async getComments(idToEdit: string): Promise<CommentDB[]> {
+    const data: CommentDB[] = commentsMock.filter(
+      (comment) => comment.post_id === idToEdit
+    );
+    return data;
+  }
+
+  public async updateAmountComment(
+    postId: string,
+    newAmountComments: number
+  ): Promise<void> {
+    const postDB = postsMock.find((post) => post.id === postId);
+    if (postDB) {
+      postDB.amount_comments = newAmountComments;
     }
   }
 }

@@ -358,12 +358,18 @@ export class PostsBusiness {
     const postsDB = await this.postsDatabase.findPostByIdAmount(postId);
     await this.postsDatabase.insertComment(newPostToDB);
 
+    if (!postsDB) {
+      throw new BadRequestError("Post não encontrado");
+    }
+
     await this.postsDatabase.updateAmountComment(
       postId,
       postsDB.amount_comments + 1
     );
 
-    const output: CreateCommentOutputDTO = undefined;
+    const output: CreateCommentOutputDTO = {
+      commentId: id,
+    };
 
     return output;
   };

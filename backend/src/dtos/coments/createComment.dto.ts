@@ -5,10 +5,12 @@ export interface CreateCommentInputDTO {
   token: string;
   postId: string;
   likes: number;
-  deslikes: number;
+  dislikes: number;
 }
 
-export type CreateCommentOutputDTO = undefined;
+export type CreateCommentOutputDTO = {
+  commentId: string;
+};
 
 export const createCommentSchema = z
   .object({

@@ -88,7 +88,9 @@ export class PostsDatabase extends BaseDatabase {
     await BaseDatabase.connection(PostsDatabase.TABLE_COMMENT).insert(newPost);
   }
 
-  public async findPostByIdAmount(idToEdit: string): Promise<PostsDBAmount> {
+  public async findPostByIdAmount(
+    idToEdit: string
+  ): Promise<PostsDBAmount | undefined> {
     const postsDB: PostsDBAmount[] = await BaseDatabase.connection(
       PostsDatabase.TABLE_NAME
     ).where({ id: idToEdit });

@@ -79,6 +79,7 @@ describe("testes no LikeDislike", () => {
       dislikes: 5,
       created_at: "2023-09-20T10:00:00Z",
       updated_at: "2023-09-20T11:00:00Z",
+      amount_comment: 0,
     };
 
     // Criar um objeto Post
@@ -89,7 +90,8 @@ describe("testes no LikeDislike", () => {
       postDB.likes,
       postDB.dislikes,
       postDB.created_at,
-      postDB.updated_at
+      postDB.updated_at,
+      postDB.amount_comment
     );
 
     // Verificar se o objeto foi criado corretamente
