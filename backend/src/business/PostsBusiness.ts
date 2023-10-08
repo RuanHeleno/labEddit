@@ -3,7 +3,7 @@ import { UserDatabase } from "../database/UserDatabase";
 import {
   CreateCommentInputDTO,
   CreateCommentOutputDTO,
-} from "../dtos/coments/Createcomment.dto";
+} from "../dtos/coments/createComment.dto";
 
 import {
   GetCommentsInputDTO,
