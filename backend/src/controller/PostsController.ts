@@ -7,7 +7,7 @@ import { CreatePostSchema } from "../dtos/posts/createPost.dto";
 import { EditPostSchema } from "../dtos/posts/editPost.dto";
 import { DeletePostSchema } from "../dtos/posts/deletePost.dto";
 import { LikeDislikesSchema } from "../dtos/likesDislikes/updateLikeDislike.dto";
-import { createCommentSchema } from "../dtos/coments/Createcomment.dto";
+import { createCommentSchema } from "../dtos/coments/createComment.dto";
 import { GetCommentsSchema } from "../dtos/coments/getComments.dto";
 
 export class PostsController {

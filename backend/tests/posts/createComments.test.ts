@@ -7,7 +7,7 @@ import { UserDatabaseMock } from "../mocks/UserDatabaseMock";
 import {
   CreateCommentInputDTO,
   CreateCommentOutputDTO,
-} from "../../src/dtos/coments/Createcomment.dto";
+} from "../../src/dtos/coments/createComment.dto";
 
 describe("Testes no createComment", () => {
   const postsBusiness = new PostsBusiness(
