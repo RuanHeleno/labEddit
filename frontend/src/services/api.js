@@ -2,8 +2,7 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 
 export const api = axios.create({
-  baseURL: 'http://localhost:3003',
-  //baseURL: import.meta.env.VITE_API_URL,
+  baseURL: import.meta.env.VITE_API_URL,
 });
 
 export const createNewUser = async (name, email, password) => {
@@ -173,6 +172,58 @@ export const editPost = async (content, token, id) => {
 export const deletePost = async (id, token) => {
   const result = await api
     .delete(`/posts/${id}`, {
+      headers: {
+        Authorization: token,
+      },
+    })
+    .then((response) => response)
+    .catch((error) => {
+      if (
+        error.response.status === 404 ||
+        error.response.status === 400 ||
+        error.response.status === 500
+      ) {
+        Swal.fire({
+          text: `${error.response.data[0].message || error.response.data}`,
+          icon: 'error',
+          confirmButtonText: 'Ok',
+        });
+      }
+    });
+
+  return result;
+};
+
+export const getAllCommentsPost = async (id, token) => {
+  const result = await api
+    .get(`/posts/comment/${id}`, {
+      headers: {
+        Authorization: token,
+      },
+    })
+    .then((response) => response.data)
+    .catch((error) => {
+      if (
+        error.response.status === 404 ||
+        error.response.status === 400 ||
+        error.response.status === 500
+      ) {
+        Swal.fire({
+          text: `${error.response.data[0].message || error.response.data}`,
+          icon: 'error',
+          confirmButtonText: 'Ok',
+        });
+      }
+    });
+
+  return result;
+};
+
+export const insertCommentPost = async (id, token, content) => {
+  const body = { content };
+
+  const result = await api
+    .post(`/posts/comment/${id}`, body, {
       headers: {
         Authorization: token,
       },

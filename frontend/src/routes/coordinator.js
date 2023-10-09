@@ -9,3 +9,7 @@ export const goToSignUp = (navigate) => {
 export const goToPosts = (navigate) => {
   navigate('/posts');
 };
+
+export const goToComments = (navigate, id) => {
+  navigate(`/posts/comments/${id}`);
+};

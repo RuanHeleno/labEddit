@@ -8,6 +8,7 @@ import SignUp from '../pages/SignUp';
 import Posts from '../pages/Posts';
 import Error from '../pages/Error';
 import { AuthProvider } from '../contexts/Auth';
+import Comments from '../pages/Comments';
 
 const AppRoutes = () => {
   return (
@@ -37,6 +38,16 @@ const AppRoutes = () => {
               <AnimatePresence mode="wait">
                 <ProtectedPage>
                   <Posts key="posts" />
+                </ProtectedPage>
+              </AnimatePresence>
+            }
+          />
+          <Route
+            path="/posts/comments/:id"
+            element={
+              <AnimatePresence mode="wait">
+                <ProtectedPage>
+                  <Comments key="comments" />
                 </ProtectedPage>
               </AnimatePresence>
             }

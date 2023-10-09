@@ -11,7 +11,7 @@ import { goToHome, goToPosts } from '../../routes/coordinator';
 
 const Menu = () => {
   const context = useContext(GlobalContext);
-  const { showMenu, setShowMenu } = context;
+  const { showMenu, setShowMenu, menuComment, setMenuComment } = context;
   const authContext = useContext(AuthContext);
   const { logout } = authContext;
 
@@ -20,6 +20,10 @@ const Menu = () => {
 
   useEffect(() => {
     setShowMenu(location.pathname !== '/');
+
+    location.pathname === '/' || location.pathname === '/posts'
+      ? setMenuComment(false)
+      : setMenuComment(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname]);
 
@@ -30,7 +34,13 @@ const Menu = () => {
 
   return (
     <Container $showMenu={showMenu}>
-      <div></div>
+      {menuComment ? (
+        <p className="close" onClick={() => goToPosts(navigate)}>
+          X
+        </p>
+      ) : (
+        <div></div>
+      )}
 
       <figure onClick={handleHome}>
         <img src={logo} alt="Logo Labook" />

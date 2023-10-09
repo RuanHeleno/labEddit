@@ -6,6 +6,7 @@ import { AiFillEdit, AiFillDelete } from 'react-icons/ai';
 import { IoSend } from 'react-icons/io5';
 
 import Button from '../../components/Button';
+import Line from '../../components/Line';
 import AutoExpandTextArea from '../../components/AutoExpandTextArea';
 import { AuthContext } from '../../contexts/Auth';
 import {
@@ -27,6 +28,8 @@ import {
 
 import comment from '../../assets/img/comentario_icon.png';
 import { GlobalContext } from '../../contexts/GlobalContext';
+import { goToComments } from '../../routes/coordinator';
+import { useNavigate } from 'react-router-dom';
 
 const Posts = () => {
   const context = useContext(GlobalContext);
@@ -43,6 +46,8 @@ const Posts = () => {
   const { loading, setLoading } = authContext;
 
   const token = localStorage.getItem('token');
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (token) {
@@ -87,7 +92,8 @@ const Posts = () => {
 
       getUser();
     }
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loading]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -184,6 +190,8 @@ const Posts = () => {
         <Button value={'Postar'} />
       </Form>
 
+      <Line />
+
       <Stack mt="2rem" spacing="1rem">
         {loading ? (
           <>
@@ -228,11 +236,11 @@ const Posts = () => {
                   </div>
 
                   <div className="middle">
-                    <figure>
+                    <figure onClick={() => goToComments(navigate, post.id)}>
                       <img src={comment} alt="Ícone de comentário" />
                     </figure>
 
-                    <p>0</p>
+                    <p>{post.amountComment}</p>
                   </div>
 
                   {isOwner && (

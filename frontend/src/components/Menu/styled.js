@@ -24,4 +24,10 @@ export const Container = styled.nav`
     color: #4088cb;
     text-align: right;
   }
+
+  .close {
+    color: #a3a3a3;
+    text-align: left;
+    font-size: 1.5rem;
+  }
 `;

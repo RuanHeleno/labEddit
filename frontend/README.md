@@ -13,11 +13,14 @@
 
 ## :mega: Overview
 
+- A project to my portfolio made based on a Social Media fullstack. See more below :)
+
 ### Features
 
 - SignUp
 - Login
 - Post a message
+- Post a comment in a message
 - Edit/Delete your post
 - See all posts
 
