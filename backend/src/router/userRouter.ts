@@ -18,6 +18,7 @@ const userController = new UserController(
 );
 
 userRouter.get("/", userController.getUsers);
+userRouter.get("/data", userController.getUserByToken);
 userRouter.post("/signup", userController.signup);
 userRouter.post("/login", userController.login);
 userRouter.put("/:email", userController.editUser);

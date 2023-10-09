@@ -8,6 +8,7 @@ export interface PostsDB {
   dislikes: number;
   created_at: string;
   updated_at: string;
+  amount_comments: number;
 }
 
 // é o modelo de Posts que o front receberá (createdAt camelCase)
@@ -19,6 +20,7 @@ export interface PostsModel {
   dislikes: number;
   createdAt: string;
   updatedAt: string;
+  amountComments: number;
 }
 
 // é o modelo de Posts que o Get Posts receberá
@@ -37,6 +39,27 @@ export enum POST_LIKE {
   ALREADY_DISLIKED = "ALREADY DISLIKED",
 }
 
+export interface GetcommentModel {
+  id: string;
+  content: string;
+  likes: number;
+  dislikes: number;
+  createdAt: string;
+  updatedAt: string;
+  creator: GetPostsFromUser;
+}
+
+export interface PostsDBAmount {
+  id: string;
+  creator_id: string;
+  content: string;
+  likes: number;
+  dislikes: number;
+  created_at: string;
+  updated_at: string;
+  amount_comments: number;
+}
+
 export class Posts {
   constructor(
     private id: string,
@@ -45,7 +68,8 @@ export class Posts {
     private likes: number,
     private dislikes: number,
     private createdAt: string,
-    private updatedAt: string
+    private updatedAt: string,
+    private amountComments: number
   ) {}
 
   public getId(): string {
@@ -112,6 +136,14 @@ export class Posts {
     this.content = value;
   }
 
+  public getAmmountComments(): number {
+    return this.amountComments;
+  }
+
+  public setAmmountComments(value: number) {
+    this.amountComments = value;
+  }
+
   // para facilitar nossa vida, temos o método que gera um PostsDB
   public toDBModel(): PostsDB {
     return {
@@ -122,6 +154,7 @@ export class Posts {
       dislikes: this.dislikes,
       created_at: this.createdAt,
       updated_at: this.updatedAt,
+      amount_comments: this.amountComments,
     };
   }
 
@@ -135,6 +168,7 @@ export class Posts {
       dislikes: this.dislikes,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
+      amountComments: this.amountComments,
     };
   }
 }

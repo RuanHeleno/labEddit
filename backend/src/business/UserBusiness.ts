@@ -4,6 +4,11 @@ import {
   DeleteUserOutputDTO,
 } from "../dtos/user/deleteUser.dto";
 import { EditUserInputDTO, EditUserOutputDTO } from "../dtos/user/editUser.dto";
+import {
+  GetUserByTokenInputDTO,
+  GetUserByTokenOutputDTO,
+} from "../dtos/user/getUserByToken.dto";
+
 import { GetUsersInputDTO, GetUsersOutputDTO } from "../dtos/user/getUsers.dto";
 import { LoginInputDTO, LoginOutputDTO } from "../dtos/user/login.dto";
 import { SignupInputDTO, SignupOutputDTO } from "../dtos/user/signup.dto";
@@ -47,13 +52,38 @@ export class UserBusiness {
     return output;
   };
 
+  public getUserByToken = async (
+    input: GetUserByTokenInputDTO
+  ): Promise<GetUserByTokenOutputDTO> => {
+    const { token } = input;
+
+    const payload = this.tokenManager.getPayload(token);
+
+    if (!payload) {
+      throw new BadRequestError("Token inválido");
+    }
+
+    const userDB = await this.userDatabase.findUserById(payload.id);
+
+    if (!userDB) {
+      throw new NotFoundError("Usuário não existe");
+    }
+
+    const output: GetUserByTokenOutputDTO = {
+      id: userDB.id,
+      role: userDB.role,
+    };
+
+    return output;
+  };
+
   public signup = async (input: SignupInputDTO): Promise<SignupOutputDTO> => {
     const { name, email, password } = input;
 
     const userDBExists = await this.userDatabase.findUserByEmail(email);
 
     if (userDBExists) {
-      throw new BadRequestError("'email' já existe");
+      throw new BadRequestError("Email já cadastrado");
     }
 
     const id = this.idGenerator.generateId();
@@ -101,7 +131,7 @@ export class UserBusiness {
     const userDB = await this.userDatabase.findUserByEmail(email);
 
     if (!userDB) {
-      throw new NotFoundError("Usuário não encontrado.");
+      throw new NotFoundError("Email não cadastrado");
     }
 
     const isPasswordValid = await this.hashManager.compare(
@@ -110,7 +140,7 @@ export class UserBusiness {
     );
 
     if (!isPasswordValid) {
-      throw new BadRequestError("'password' incorreto");
+      throw new BadRequestError("Email ou Senha inválidos");
     }
 
     const user = new User(
@@ -131,7 +161,6 @@ export class UserBusiness {
     const token = this.tokenManager.createToken(tokenPayload);
 
     const output: LoginOutputDTO = {
-      message: "Login realizado com sucesso",
       token: token,
     };
 
@@ -157,7 +186,7 @@ export class UserBusiness {
 
     let hashedPassword;
 
-    if(password) {
+    if (password) {
       hashedPassword = await this.hashManager.hash(password);
     }
 
@@ -165,7 +194,7 @@ export class UserBusiness {
       payload.id,
       name || userDB.name,
       email || userDB.email,
-      hashedPassword  || userDB.password,
+      hashedPassword || userDB.password,
       userDB.role
     );
 

@@ -8,6 +8,9 @@ function GlobalState({ children }) {
   const [nickname, setNickname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [userId, setUserId] = useState('');
+  const [userRole, setUserRole] = useState('');
+  const [menuComment, setMenuComment] = useState(false);
 
   const data = {
     showMenu,
@@ -18,6 +21,12 @@ function GlobalState({ children }) {
     setEmail,
     password,
     setPassword,
+    userId,
+    setUserId,
+    userRole,
+    setUserRole,
+    menuComment,
+    setMenuComment,
   };
 
   return (

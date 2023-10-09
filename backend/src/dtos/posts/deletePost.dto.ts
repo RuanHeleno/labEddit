@@ -5,9 +5,7 @@ export interface DeletePostInputDTO {
   token: string;
 }
 
-export interface DeletePostOutputDTO {
-  message: string;
-}
+export type DeletePostOutputDTO = null;
 
 export const DeletePostSchema = z
   .object({

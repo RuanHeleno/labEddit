@@ -1,8 +1,12 @@
-import { Checkbox, Input } from '@chakra-ui/react';
 import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Checkbox, Input } from '@chakra-ui/react';
+import Swal from 'sweetalert2';
 
 import { GlobalContext } from '../../contexts/GlobalContext';
 import Button from '../../components/Button';
+import { createNewUser } from '../../services/api';
+import { goToHome } from '../../routes/coordinator';
 
 import { Container, Form } from './styled';
 
@@ -10,6 +14,27 @@ const SignUp = () => {
   const context = useContext(GlobalContext);
   const { nickname, setNickname, email, setEmail, password, setPassword } =
     context;
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const result = await createNewUser(nickname, email, password);
+
+    if (!result) return;
+
+    if (result.status === 201) {
+      Swal.fire({
+        text: `${result.data.message}`,
+        icon: 'success',
+        confirmButtonText: 'Ok',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          goToHome(navigate);
+        }
+      });
+    }
+  };
 
   return (
     <Container
@@ -20,7 +45,7 @@ const SignUp = () => {
     >
       <h2>Olá, boas vindas ao LabEddit ;)</h2>
 
-      <Form>
+      <Form onSubmit={(e) => handleSubmit(e)}>
         <Input
           type="text"
           id="nickname"

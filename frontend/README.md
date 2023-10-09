@@ -1,8 +1,59 @@
-# React + Vite
+# LabEddit
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Table of contents
 
-Currently, two official plugins are available:
+- [Overview](#overview)
+  - [Features](#features)
+  - [Preview](#preview)
+  - [Demo](#demo)
+  - [Sections](#sections)
+- [Process](#process)
+  - [Built with](#built-with)
+- [Author](#author)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## :mega: Overview
+
+- A project to my portfolio made based on a Social Media fullstack. See more below :)
+
+### Features
+
+- SignUp
+- Login
+- Post a message
+- Post a comment in a message
+- Edit/Delete your post
+- See all posts
+
+### Preview
+
+![Project](./src/assets/img/preview.png)
+
+### Demo
+
+[Click here to see more](https://labeddit-rh.netlify.app/)
+
+## :newspaper: Process
+
+### Built with
+
+- [React.Js](https://reactjs.org)
+
+### :man: Author
+
+<table>
+  <tr>
+    <td align="center">
+      <a href="https://github.com/ruanHeleno">
+        <img 
+            src="https://github.com/RuanHeleno.png" 
+            width="100px;" 
+            alt="Foto do Ruan Heleno no GitHub" 
+        /> <br />
+        <sub> <b>Ruan Heleno</b> </sub>
+      </a>
+    </td>
+  </tr>
+</table>
+
+- [Portfolio](https://ruanheleno.github.io)
+- [LinkedIn](https://www.linkedin.com/in/ruanheleno/)

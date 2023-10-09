@@ -1,10 +1,12 @@
+import { CommentDB } from "../models/Comments";
 import { LikesDislikesDB } from "../models/LikesDislikes";
-import { POST_LIKE, PostsDB } from "../models/Posts";
+import { POST_LIKE, PostsDB, PostsDBAmount } from "../models/Posts";
 import { BaseDatabase } from "./BaseDatabase";
 
 export class PostsDatabase extends BaseDatabase {
   public static TABLE_NAME = "posts";
   public static TABLE_NAME_2 = "likes_dislikes";
+  public static TABLE_COMMENT = "comments";
 
   public async insertPost(newPostsDB: PostsDB): Promise<void> {
     await BaseDatabase.connection(PostsDatabase.TABLE_NAME).insert(newPostsDB);
@@ -80,5 +82,37 @@ export class PostsDatabase extends BaseDatabase {
         user_id: likeDislikeDB.user_id,
         post_id: likeDislikeDB.post_id,
       });
+  };
+
+  public async insertComment(newPost: CommentDB) {
+    await BaseDatabase.connection(PostsDatabase.TABLE_COMMENT).insert(newPost);
+  }
+
+  public async findPostByIdAmount(
+    idToEdit: string
+  ): Promise<PostsDBAmount | undefined> {
+    const postsDB: PostsDBAmount[] = await BaseDatabase.connection(
+      PostsDatabase.TABLE_NAME
+    ).where({ id: idToEdit });
+
+    const postDB: PostsDBAmount | undefined = postsDB[0];
+
+    return postDB;
+  }
+
+  public async getComments(idToEdit: string): Promise<CommentDB[]> {
+    const data: CommentDB[] = await BaseDatabase.connection(
+      PostsDatabase.TABLE_COMMENT
+    ).where({ post_id: idToEdit });
+    return data;
+  }
+
+  public updateAmountComment = async (
+    postId: string,
+    newAmountComments: number
+  ): Promise<void> => {
+    await BaseDatabase.connection(PostsDatabase.TABLE_NAME)
+      .where({ id: postId })
+      .update({ amount_comments: newAmountComments });
   };
 }

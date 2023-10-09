@@ -11,7 +11,7 @@ export class HashManager {
 
     return hash;
   };
-  
+
   public compare = async (
     plaintext: string,
     hash: string

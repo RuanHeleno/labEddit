@@ -29,6 +29,7 @@ CREATE TABLE
         dislikes INTEGER NOT NULL,
         created_at TEXT DEFAULT (DATETIME()) NOT NULL,
         updated_at TEXT DEFAULT (DATETIME()) NOT NULL,
+        amount_comments INTEGER,
         FOREIGN KEY (creator_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE
     );
 
@@ -41,4 +42,16 @@ CREATE TABLE
         FOREIGN KEY (post_id) REFERENCES posts(id) ON UPDATE CASCADE ON DELETE CASCADE
     );
 
-DROP TABLE likes_dislikes;
+CREATE TABLE
+    IF NOT EXISTS comments (
+        id TEXT PRIMARY KEY UNIQUE NOT NULL,
+        creator_id TEXT NOT NULL,
+        post_id TEXT NOT NULL,
+        content TEXT NOT NULL,
+        likes INTEGER,
+        dislikes INTEGER,
+        created_at TEXT NOT NULL,
+        updated_at TEXT,
+        FOREIGN KEY (creator_id) REFERENCES users (id) ON DELETE CASCADE ON UPDATE CASCADE,
+        FOREIGN KEY (post_id) REFERENCES posts (id) ON DELETE CASCADE ON UPDATE CASCADE
+    );

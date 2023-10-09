@@ -18,7 +18,9 @@ const postsController = new PostsController(
 );
 
 postsRouter.get("/", postsController.getPosts);
+postsRouter.get("/comment/:id", postsController.getComments);
 postsRouter.post("/", postsController.createPost);
+postsRouter.post("/comment/:id", postsController.createComment);
 postsRouter.put("/:id", postsController.editPost);
 postsRouter.put("/:id/like", postsController.LikeDislike);
 postsRouter.delete("/:id", postsController.deletePost);
