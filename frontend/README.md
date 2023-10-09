@@ -30,7 +30,7 @@
 
 ### Demo
 
-[Click here to see more]()
+[Click here to see more](https://labeddit-rh.netlify.app/)
 
 ## :newspaper: Process
 
