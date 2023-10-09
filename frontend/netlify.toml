@@ -1,5 +1,10 @@
-# Configurações de redirecionamento e reescrita (Opcional)
+[build]
+  command = "npm run build" # ou o comando que você usa para criar seu aplicativo
+  publish = "dist" # ou o diretório onde seus arquivos de build estão localizados
+
 [[redirects]]
-  from = "/*"
-  to = "./index.html"
+  from = "/*.js"
+  to = "/*.js"
   status = 200
+  force = true
+  headers = { Content-Type = "application/javascript; charset=utf-8" }
