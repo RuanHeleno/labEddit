@@ -1,0 +1,5 @@
+# Configurações de redirecionamento e reescrita (Opcional)
+[[redirects]]
+  from = "/*"
+  to = "./index.html"
+  status = 200
