@@ -1,5 +1,7 @@
 # LabEddit
 
+See more below.
+
 - [Frontend](./frontend/)
 - [Backend](./backend/)
 
